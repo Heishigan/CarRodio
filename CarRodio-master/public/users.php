@@ -80,7 +80,7 @@ class user extends database
       $sql="INSERT INTO users VALUES (?,?,?,?)";
       $stmt=$this->connect()->prepare($sql);
       $stmt->execute([$email,$password,$usertype,$name]);
-      $query="INSERT INTO users(email,password,user-type) VALUES (?,?,?,?)";
+      $query= "INSERT INTO users(email,password,user-type,username) VALUES (?,?,?,?)";
       $db=$this->connect()->prepare($query);
       $db->execute([$email,$password,$usertype,$name]);
       // $res="succesfully inserted";
@@ -121,9 +121,10 @@ public function usercheck($email) {
       }
       if ($name['user-type']=="seller") {
           header("location:register.php");
+          $_SESSION["sellerID"] = $name['ID'];
       }
       if ($name['user-type']=="buyer") {
-          header("location:buyer.php");
+          header("location:test.php");
       }
   }
 

@@ -14,6 +14,28 @@ class AdsView extends Ads{
             
         }
     }
+    public function showAdsforSeller()
+    {
+
+        $results = $this->getAds();
+        foreach ($results as $name) {
+            $cars = new CarView();
+            $carID = $name['CarID'];
+            $cars->showCarsforSeller($carID);
+        }
+    }
+
+    public function showAdsforAdmin()
+    {
+        
+        $results = $this->getUnverifiedAds();
+        foreach ($results as $name) {
+            $cars = new CarView();
+            $carID = $name['CarID'];
+            $cars->showCarsforAdmin($carID);
+            
+        }
+    }
 
 
     

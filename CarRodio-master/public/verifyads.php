@@ -1,4 +1,5 @@
 <?php
+
 include("../src/backend/includes/autoloader.inc.php");
 
 
@@ -7,7 +8,9 @@ $Brands = new BrandsView();
 $Details = new CarDetailsView();
 $Cars = new CarView();
 $Ads = new AdsView();
-$CarContr = new CarContr();
+$AdsView = new AdsContr();
 
-$CarContr->DeleteCar($ID);
-header("location:postedAdverts.php");
+$AdsView->setTheVerification($ID);
+header("location:admin.php");
+
+

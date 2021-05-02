@@ -10,4 +10,6 @@ $Ads = new AdsView();
 $CarContr = new CarContr();
 
 $CarContr->DeleteCar($ID);
-header("location:postedAdverts.php");
+header("location:admin.php");
+
+

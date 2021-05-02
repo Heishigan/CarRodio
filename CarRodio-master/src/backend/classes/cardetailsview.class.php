@@ -24,6 +24,54 @@ EOT;
         }
     }
     
+    public function showEditDetail($ID){
+        $results = $this->getCarDetail($ID);
+        foreach ($results as $name) {
+            $Cars = new CarView();
+            $Cars->getSingleCarforEdit($ID);
+         
+            echo <<<EOT
+        
+      <div class="field">
+        <label>engine-name:</label>
+        <input type="text" value="{$name['EngineName']}" name="engine-name" required>
+      </div><br><br>
+      <div class="field">
+        <label>engine-capacity:</label>
+        <input type="text" value="{$name['EngineCapacity']}" name="engine-capacity" required>
+      </div><br><br>
+    
+      <div class="field">
+        <label>body-type:</label>
+        <input type="text" value="{$name['BodyType']}" name="body-type" required>
+      </div><br><br>
+      <div class="field">
+        <label>transmission:</label>
+        <input type="text" value="{$name['Transmission']}" name="transmission" required>
+      </div><br><br>
+      <div class="field">
+        <label>fuel-type:</label>
+        <input type="text" value="{$name['FuelType']}" name="fuel-type" required>
+      </div><br><br>
+      <div class="field">
+        <label>mileage:</label>
+        <input type="text" value="{$name['Mileage']}" name="mileage" required>
+      </div><br><br>
+      <div class= "">
+        <label>image-1:</label>
+        <input type="file" name="image" >
+      </div>
+      <div class="">
+        <label>image-2:</label>
+        <input type="file" name="image2" >
+      </div>
+   <br>
+      <div class="field btn">
+        <button type="submit" name="editpost" class="btn">Edit Advert</button>
+      </div></div>
+EOT;
+    }
+}
 
     public function showDetail($ID)
     {
@@ -104,8 +152,41 @@ EOT;
 EOT;
         }
     }
+    public function getCarImageforAdmin($ID)
+    {
+        $results = $this->getCarDetail($ID);
+        foreach ($results as $name) {
+            echo <<<EOT
+           
+     
+    <td> {$name['EngineName'] } </td>
+    <td>{$name['EngineCapacity']} </td>
+    <td>{$name['BodyType'] } </td>
+    <td> {$name['Transmission']}  </td>
+    <td> {$name['FuelType'] }</td>
+     <td> {$name['Mileage']}</td>
+    <td><img src="../src/frontend/assets/imgs/uploads/{$name['Image_1']}" width="200" height="100"></td>
+    <td><img src="../src/frontend/assets/imgs/uploads/{$name['Image_1']}" width="200" height="100"></td>
+           <td><a href="#" class="btn-warning">verify</td>
+                        <td><a href="#" class="btn-warning">delete</td>
+              </div>
+              </td>
 
-    
+              </tr>
+  
+             
+EOT;
+        }
+    }
+
+    public function getCarDetailLastID()
+    {
+        $results = $this->getCarDetailsLastID();
+        foreach ($results as $name) {
+            return $name['ID'];
+        }
+    }
+
   
 
 }

@@ -19,6 +19,14 @@ class CarDetails extends Dbh
         return $results;
     }
 
+    protected function getCarDetailsLastID()
+    {
+        $sql = "SELECT * FROM cardetails ORDER BY ID DESC LIMIT 1";
+        $stmt = $this->connect()->query($sql);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
     protected function setCarDetails($EngineName,  $EngineCapacity, $BodyType, $Transmission, $FuelType, $Mileage, $Image_1, $Image_2)
     {
         $sql = "INSERT INTO cardetails(EngineName,EngineCapacity,BodyType,Transmission,FuelType,Mileage,Image_1,Image_2) VALUES (?,?,?,?,?,?,?,?)";

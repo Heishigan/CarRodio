@@ -28,13 +28,54 @@ class Ads extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
-
-    protected function setBooking($userID,  $roomID, $dateStart, $dateEnd)
+    protected function getUnverifiedAds()
     {
-        $sql = "INSERT INTO booking(UserID,RoomID,dateStart,dateEnd) VALUES (?,?,?,?)";
+        $sql = "SELECT * FROM ad WHERE Verify= 0";
+        $stmt = $this->connect()->query($sql);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+    protected function setAd($Date, $CarID, $CarBrandName, $CarDetailsID, $UserID , $Verify)
+    {
+        $sql = "INSERT INTO ad(Date,CarID,CarBrandName,CarDetailsID,UserID,Verify) VALUES (?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$userID,  $roomID, $dateStart, $dateEnd]);
+        $stmt->execute([$Date, $CarID, $CarBrandName, $CarDetailsID, $UserID, $Verify]);
         
 
     }
+    public function showVerifiedAds()
+    {
+       
+        $sql = "SELECT count(ID) AS total FROM ad WHERE verify='1'";
+        $result = $this->connect()->prepare($sql);
+        $result->execute();
+        $number_of_rows = $result->fetchColumn(); 
+        echo $number_of_rows;
+
+
+
+    }
+
+    public function showUnVerifiedAds()
+    {
+
+        $sql = "SELECT count(ID) AS total FROM ad WHERE verify='0'";
+        $result = $this->connect()->prepare($sql);
+        $result->execute();
+        $number_of_rows = $result->fetchColumn();
+        echo $number_of_rows;
+    }
+    public function setVerification($ID)
+    {
+
+        $sql = "UPDATE ad SET Verify=1 WHERE CarID=?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$ID]);
+
+        
+    }
+
+
+
 }

@@ -1,11 +1,13 @@
 <?php
-include 'database.php';
-include 'users.php';
-include "db.php";
-session_start();
-$conn=mysqli_connect("localhost","root","","cc");
- $sql="SELECT * from cars where carid={$_GET["carid"]}";
- $result=$conn->query($sql);
+include("../src/backend/includes/autoloader.inc.php");
+    if (isset($_GET['id']) /*you can validate the link here*/) {
+      $_SESSION['ID'] = $_GET['id'];
+    }
+$ID = $_GET['id'];
+    $Brands = new BrandsView();
+    $Details = new CarDetailsView();
+    $Cars = new CarView();
+    $carcontr = new CarContr();
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,108 +44,47 @@ $conn=mysqli_connect("localhost","root","","cc");
                 <div class="charts__left__cards">
           <br>
           <form method="post" action="editAD.php" enctype="multipart/form-data">
-          <?php while ($row=mysqli_fetch_assoc($result)) { ?>
-      <div class="field">
-        <label>car-id:</label>
-        <input type="text" value="<?php echo $row['carid'] ?>" name="car-id" readonly>
-      </div><br><br>
-      <div class="field">
-        <label>brand-name:</label>
-        <input type="text" value="<?php echo $row['brandname'] ?>"  name="brand" required>
-      </div><br><br>
-      <div class="field">
-        <label>car-name:</label>
-        <input type="text" value="<?php echo $row['carname'] ?>" name="name" required>
-      </div><br><br>
-      <div class="field">
-        <label>model:</label>
-        <input type="text" value="<?php echo $row['model'] ?>" name="model" required>
-      </div><br><br>
-      <div class="field">
-        <label>price(LKR):</label>
-        <input type="number" value="<?php echo $row['price'] ?>" name="price" required>
-      </div><br><br>
-      <div class="field">
-        <label>engine-name:</label>
-        <input type="text" value="<?php echo $row['enginename'] ?>" name="engine-name" required>
-      </div><br><br>
-      <div class="field">
-        <label>engine-capacity:</label>
-        <input type="text" value="<?php echo $row['enginecap'] ?>" name="engine-capacity" required>
-      </div><br><br>
-      <div class="field">
-        <label>condition:</label>
-        <input type="text" value="<?php echo $row['condition'] ?>" name="condition" required>
-      </div><br><br>
-      <div class="field">
-        <label>body-type:</label>
-        <input type="text" value="<?php echo $row['bodytype'] ?>" name="body-type" required>
-      </div><br><br>
-      <div class="field">
-        <label>transmission:</label>
-        <input type="text" value="<?php echo $row['transmission'] ?>" name="transmission" required>
-      </div><br><br>
-      <div class="field">
-        <label>fuel-type:</label>
-        <input type="text" value="<?php echo $row['fueltype'] ?>" name="fuel-type" required>
-      </div><br><br>
-      <div class="field">
-        <label>mileage:</label>
-        <input type="text" value="<?php echo $row['mileage'] ?>" name="mileage" required>
-      </div><br><br>
-      <div class= "">
-        <label>image-1:</label>
-        <input type="file" name="image" >
-      </div>
-      <div class="">
-        <label>image-2:</label>
-        <input type="file" name="image2" >
-      </div>
-      <div class="">
-        <label>image-3:</label>
-        <input type="file" name="image3" >
-      </div>
-      <div class="">
-        <label>image-4:</label>
-        <input type="file" name="image4" >
-      </div><div class="">
-        <label>image-5:</label>
-        <input type="file" name="image5" >
-      </div><br><br>
-      <div class="field btn">
-        <button type="submit" name="editpost" class="btn">Edit Advert</button>
-      </div></div>
-      <?php }  ?>
+
+ 
+    <?php
+  $Details->showEditDetail($ID);
+        ?>
+    
     </form>
     <?php
+
                 if (isset($_POST["editpost"])) {
-                      $sql="UPDATE cars 
-                      SET 
-                          carid = '{$_POST["car-id"]}';
-                          brandname = '{$_POST["brand"]}';
-                          carname = '{$_POST["name"]}';
-                          model = '{$_POST["model"]}';
-                          price = '{$_POST["price"]}';
-                          enginename = '{$_POST["engine-name"]}';
-                          enginecapacity = '{$_POST["engine-capacity"]}';
-                          condition = '{$_POST["condition"]}';
-                          bodytype = '{$_POST["body-type"]}';
-                          transmission = '{$_POST["transmission"]}';
-                          fueltype = '{$_POST["fuel-type"]}';
-                          mileage = '{$_POST["mileage"]}';
-                          WHERE
-                          carid = {$_POST["car-id"]}";  
-                           if($db->query($sql)){
-                            echo "Edit Succesful";
-                            header("Location: postedAdverts.php");
-                        
+      // $sql="UPDATE cars 
+      // SET 
+      //     carid = '{$_POST["car-id"]}';
+      //     brandname = '{$_POST["brand"]}';
+      //     carname = '{$_POST["name"]}';
+      //     model = '{$_POST["model"]}';
+      //     price = '{$_POST["price"]}';
+      //     enginename = '{$_POST["engine-name"]}';
+      //     enginecapacity = '{$_POST["engine-capacity"]}';
+      //     condition = '{$_POST["condition"]}';
+      //     bodytype = '{$_POST["body-type"]}';
+      //     transmission = '{$_POST["transmission"]}';
+      //     fueltype = '{$_POST["fuel-type"]}';
+      //     mileage = '{$_POST["mileage"]}';
+      //     WHERE
+      //     carid = {$_POST["car-id"]}";  
+      //      if($db->query($sql)){
+      //       echo "Edit Succesful";
+      //       header("Location: postedAdverts.php");
+      $carname = $_POST["name"];
+      $brandname = $_POST["brand"];
+      $model = $_POST["model"];
+      $price = $_POST["price"];
+      $condition = $_POST["condition"];
+        $carcontr->UpdateCars($carname, $brandname, $model, $price, $condition,  $_SESSION['ID']);
         
                         } else {
                           echo "Edit Unsuccesful";
         
                         }; 
-                }                        
-                        
+                   
                
                 
             

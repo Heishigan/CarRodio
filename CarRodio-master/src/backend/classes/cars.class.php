@@ -18,6 +18,13 @@ class Car extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
+    protected function getUnverifiedCars()
+    {
+        $sql = "SELECT * FROM car";
+        $stmt = $this->connect()->query($sql);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
 
 
     protected function searchCars($Keyword)
@@ -29,16 +36,38 @@ class Car extends Dbh
         return $results;
     }
 
+
+    protected function getCarLastID()
+    {
+        $sql = "SELECT * FROM car ORDER BY ID DESC LIMIT 1";
+        $stmt = $this->connect()->query($sql);
+        $results = $stmt->fetch();
+        return $results;
+        
+        
+    }
+
     protected function setCar($Name,  $CarBrandName, $CarDetails, $Model, $Price, $VehicleCondition)
     {
         $sql = "INSERT INTO car(Name,CarBrandName,CarDetails,Model,Price,VehicleCondition) VALUES (?,?,?,?,?,?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$Name,  $CarBrandName, $CarDetails, $Model, $Price, $VehicleCondition]);
-        $lastId = $this->connect()->lastInsertId();
-        return $lastId;
+   
+    }
+    public function DeleteCars($ID)
+    {
+     
+        $sql = "DELETE FROM car WHERE ID=?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$ID]);
     }
 
-
+    protected function updateCar($brandname, $carname, $model, $price, $condition,$ID)
+    {
+        $sql = "UPDATE car SET Name=?,CarBrandName=?,Model=?,Price=?,VehicleCondition=? WHERE ID =?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$carname, $brandname, $model, $price, $condition, $ID]);
+    }
 
 
 

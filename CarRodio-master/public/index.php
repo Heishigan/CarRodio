@@ -1,5 +1,5 @@
 <?php
-include '../src/backend/classes/database.php';
+include 'database.php';
 include 'users.php';
 session_start();
 $un = "";
@@ -56,11 +56,11 @@ $usertype = "";
         <h2>Sign In</h2>
         <label>
           <span>Email Address</span>
-          <input type="email" name="username" required>
+          <input type="email" name="username">
         </label><br>
         <label>
           <span>Password</span>
-          <input type="password" name="password" required>
+          <input type="password" name="password">
         </label>
         <button class="submit" name="login" type="submit">Sign In</button>
         <p class="forgot-pass">Forgot Password ?</p>
@@ -88,19 +88,24 @@ $usertype = "";
           <h2>Sign Up</h2>
           <label>
             <span>Username</span>
-            <input type="email" name="username" required>
+            <input type="email" name="username">
           </label>
           <label>
             <span>Password</span>
-            <input type="password" name="password" required>
+            <input type="password" name="password">
+          </label>
+          <label>
+            <span>name</span>
+            <input type="name" name="name">
           </label>
           <label>
             <span>Confirm Password</span>
-            <input type="password" name="re-enterpassword" required>
+            <input type="password" name="re-enterpassword">
           </label>
           <label>
             <span>User Type</span>
-            <select name="usertype" required>
+            <select name="usertype">
+              <option></option>
               <option value="admin">Admin</option>
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
@@ -119,47 +124,47 @@ $usertype = "";
     $pw = $_POST['password'];
     $usertype = $_POST['usertype'];
     $repass = $_POST['re-enterpassword'];
+    $name = $_POST['name'];
 
     if (empty($un)) {
-      echo "pls enter username";
-      echo "<br>";
+      echo '<script>alert("please enter username")</script>';
+    }
+    if (empty($name)) {
+      echo '<script>alert("please enter name")</script>';
     }
     if (empty($pw)) {
-      echo "pls enter pwd";
-      echo "<br>";
+      echo '<script>alert("please enter password")</script>';
     }
     if (empty($usertype)) {
-      echo "pls enter usertype ";
-      echo "<br>";
+      echo '<script>alert("please select usertype")</script>';
     }
     if (empty($repass)) {
-      echo "pls re - enter password";
-      echo "<br>";
+      echo '<script>alert("please re-enter password")</script>';
     }
     if ($usertype == "admin" || $usertype == "buyer" || $usertype == "seller") {
-      if (empty($un) == false) {
-        if (empty($pw) == false) {
-          if (empty($repass == false)) {
-            if (empty($usertype) == false) {
-              if ($repass == $pw) {
-                $pw = md5($pw);
-                $users = new user();
-                $users->userexists($un);
-                if ($users->uncheck == "username already exists") {
-                  echo '<script>alert("Username already exists")</script>';
+      if (empty($name) == false) {
+        if (empty($un) == false) {
+          if (empty($pw) == false) {
+            if (empty($repass == false)) {
+              if (empty($usertype) == false) {
+                if ($repass == $pw) {
+                  $pw = md5($pw);
+                  $users = new user();
+                  $users->userexists($un);
+                  if ($users->uncheck == "username already exists") {
+                    echo '<script>alert("Username already exists")</script>';
+                  } else {
+                    $users->recordusers($un, $pw, $usertype, $name);
+                    echo '<script>alert("Succesfully created an account")</script>';
+                  }
                 } else {
-                  $users->recordusers($un, $pw, $usertype);
-                  echo '<script>alert("Succesfully created an account")</script>';
+                  echo '<script>alert("Both passwords doesn\'t match")</script>';
                 }
-              } else {
-                echo '<script>alert("Both passwords doesn\'t match")</script>';
               }
             }
           }
         }
       }
-    } else {
-      echo "not a valid usertype";
     }
   }
   if (isset($_POST['login'])) {
@@ -167,10 +172,10 @@ $usertype = "";
     $pw = $_POST['password'];
 
     if (empty($un)) {
-      echo "pls enter username";
+      echo '<script>alert("please enter username")</script>';
     }
     if (empty($pw)) {
-      echo "pls enter pwd";
+      echo '<script>alert("please enter password")</script>';;
     }
 
     if (empty($un) == false) {
@@ -179,6 +184,7 @@ $usertype = "";
         $users = new user();
         $users->getusers($un, $pw);
         if ($users->logincheck == "login succesfull") {
+          $_SESSION['username'] = $un;
           echo '<script>alert("Login Succesfull")</script>';
           $users->usercheck($un);
         }
@@ -187,7 +193,7 @@ $usertype = "";
   }
 
   ?>
-
+ 
   <script type="text/javascript" src="../src/frontend/assets/js/index.js"></script>
 </body>
 

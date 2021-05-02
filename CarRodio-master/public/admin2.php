@@ -13,6 +13,20 @@
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
+<?php
+
+include("../src/backend/includes/autoloader.inc.php");
+
+
+                   
+
+                       
+
+
+
+$Ads = new Ads();
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -279,21 +293,15 @@
             <div class="col-xl-3 col-md-6">
               <div class="card card-stats">
                 <!-- Card body -->
+                
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">number of verified adds</h5>
                       <span class="h2 font-weight-bold mb-0">
-                        <?php
-
-                        $conn = mysqli_connect("localhost", "root", "", "cc");
-                        $query = "SELECT count(carid) AS total FROM cars WHERE verify='1'";
-                        $query_result = mysqli_query($conn, $query);
-                        $row = mysqli_fetch_assoc($query_result);
-                        $num_rows = $row['total'];
-                        echo $num_rows;
-
-                        ?>
+                     <?php
+                      $Ads->showVerifiedAds();
+                     ?>
                       </span>
                     </div>
                     <div class="col-auto">
@@ -316,13 +324,7 @@
                       <span class="h2 font-weight-bold mb-0">
                         <?php
 
-                        $conn = mysqli_connect("localhost", "root", "", "cc");
-                        $query = "SELECT count(carid) AS total FROM cars WHERE verify='0'";
-                        $query_result = mysqli_query($conn, $query);
-                        $row = mysqli_fetch_assoc($query_result);
-                        $num_rows = $row['total'];
-                        echo $num_rows;
-
+                     $Ads->showUnVerifiedAds();
                         ?>
                       </span>
                     </div>
@@ -388,13 +390,13 @@
                         <?php echo $row['user-type'] ?>
                       </td>
                       <td>
-                        <?php echo $row['name'] ?>
+                        <?php echo $row['username'] ?>
                       </td>
                       <!-- <td>
                       <input type="checkbox" name="key" value="<?php echo $row['email']; ?>" required
                     </td> -->
                       <td>
-                        <a href="index.php?reject=<?php echo $row['email']; ?>">delete
+                        <a href="admin2.php?reject=<?php echo $row['email']; ?>">delete
                       </td>
                   </tr>
                   </form>
