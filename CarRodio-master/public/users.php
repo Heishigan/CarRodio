@@ -26,21 +26,21 @@ class user extends database
   //   }
   // }
   public function deleteadd($id) {
-      $conn=mysqli_connect('localhost','root','','cc');
+      $conn=mysqli_connect('localhost','root','', 'carrodio');
       $query="DELETE FROM cars where carid='$id'";
       $result=$conn->query($query);
         echo '<script>alert("add deleted")</script>';
   }
   public function verifyadd($id) {
-    $db=mysqli_connect('localhost','root','','cc');
+    $db=mysqli_connect('localhost','root','', 'carrodio');
     $query="UPDATE cars SET verify='1' WHERE carid='$id'";
     mysqli_query($db,$query);
     echo '<script>alert("add verified")</script>';
   }
   public function getusers($email,$password) {
 
-    $db=mysqli_connect('localhost','root','','cc');
-    $query="SELECT * FROM users where email='$email' AND password='$password'";
+    $db=mysqli_connect('localhost','root','', 'carrodio');
+    $query="SELECT * FROM users where email='$email' AND Password='$password'";
     $result= mysqli_query($db,$query);
     if (mysqli_num_rows($result)<>1) {
 
@@ -50,7 +50,7 @@ class user extends database
 
     }
     else {
-    $sql="SELECT * FROM users where email=? AND password=?";
+    $sql= "SELECT * FROM users where email=? AND Password=?";
     $stmt=$this->connect()->prepare($sql);
     $stmt->execute([$email,$password]);
     $names = $stmt->fetchAll();
@@ -58,7 +58,7 @@ class user extends database
     foreach ($names as $name) {
       echo $email;
       echo "<br>";
-      if ($name['password']==$password) {
+      if ($name['Password']==$password) {
         $this->logincheck="login succesfull";
       }
 
@@ -79,10 +79,10 @@ class user extends database
 
       $sql="INSERT INTO users VALUES (?,?,?,?)";
       $stmt=$this->connect()->prepare($sql);
-      $stmt->execute([$email,$password,$usertype,$name]);
-      $query= "INSERT INTO users(email,password,user-type,username) VALUES (?,?,?,?)";
+      $stmt->execute([$email, $name, $password, $usertype]);
+      $query= "INSERT INTO users(email,username,Password,usertype) VALUES (?,?,?,?)";
       $db=$this->connect()->prepare($query);
-      $db->execute([$email,$password,$usertype,$name]);
+      $db->execute([$email, $name, $password, $usertype]);
       // $res="succesfully inserted";
       $this->msg="sucessfully inserted";
 }
@@ -116,15 +116,16 @@ public function usercheck($email) {
   $email2='';
 
   foreach ($names as $name) {
-    if ($name['user-type']==="admin") {
+    if ($name['usertype']==="admin") {
         header("location:admin.php");
       }
-      if ($name['user-type']=="seller") {
+      if ($name['usertype']=="seller") {
           header("location:register.php");
           $_SESSION["sellerID"] = $name['ID'];
       }
-      if ($name['user-type']=="buyer") {
+      if ($name['usertype']=="buyer") {
           header("location:test.php");
+          $_SESSION["buyerID"] = $name['ID'];
       }
   }
 
@@ -134,7 +135,7 @@ public function usercheck($email) {
 
 
     public function userexists($email) {
-      $db=mysqli_connect('localhost','root','','cc');
+      $db=mysqli_connect('localhost','root','', 'carrodio');
       $q="SELECT * FROM users where email='$email'";
       $r=mysqli_query($db,$q);
       if (mysqli_num_rows($r)>0) {
