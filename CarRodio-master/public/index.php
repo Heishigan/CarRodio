@@ -195,6 +195,20 @@ $usertype = "";
   ?>
  
   <script type="text/javascript" src="../src/frontend/assets/js/index.js"></script>
+<!-- 
+<script type='text/javascript'>
+  $(document).ready(function(){
+  $("#ajaxdata").load("allrecords.php");
+  $("$price-dropdown").change(function(){
+    var selected = $ (this).val();
+    $("#ajaxdata").load("search.php",{selected_price : selected});
+  });
+  $("#refresh").click(function(){
+    $("#ajaxdata").load("allrecords.php");
+  });
+});
+</script> -->
+
 </body>
 
 </html>
