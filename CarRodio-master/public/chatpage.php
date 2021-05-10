@@ -1,3 +1,10 @@
+<?php
+include("../src/backend/includes/autoloader.inc.php");
+$UsersView = new Usersview();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,13 +23,11 @@
         <section class="users">
 
             <header>
-                <div class="content">
-                    <img src="#" alt="">
-                    <div class="details">
-                        <span>Sajid</span>
-                        <p>Active now</p>
-                    </div>
-                </div>
+               <?php
+                $UsersView->displayCurrentUser(1); 
+                // This is where the ID from the session gets the Active user
+        
+               ?>
             </header>
 
 
@@ -32,30 +37,10 @@
                 <button><i class="fas fa-search"></i></button>
             </div>
             <div class="users-list">
-                <a href="#">
-                    <div class="content">
-                        <img src="#" alt="">
-                        <div class="details">
-                            <span>Sajid</span>
-                            <p>Test messahe</p>
-                        </div>
-                    </div>
-                    <div class="status-dot">
-                        <i class="fas fa-circle"></i>
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="content">
-                        <img src="#" alt="">
-                        <div class="details">
-                            <span>Sajid</span>
-                            <p>Test messahe</p>
-                        </div>
-                    </div>
-                    <div class="status-dot">
-                        <i class="fas fa-circle"></i>
-                    </div>
-                </a>
+          <?php 
+          $UsersView->displaySellers();
+          
+          ?>
             </div>
 
         </section>

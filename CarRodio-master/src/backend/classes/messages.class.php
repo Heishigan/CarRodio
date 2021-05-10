@@ -1,5 +1,6 @@
 <?php
-class Users extends Dbh
+
+class Messages extends Dbh
 {
 
 
@@ -25,11 +26,11 @@ class Users extends Dbh
 
 
 
-    protected function setUser($firstname, $email, $password)
+    protected function setMessage($incomingID, $outgoingID, $msg)
     {
-        $sql = "INSERT INTO users(firstname,email,password) VALUES (?,?,?)";
+        $sql = "INSERT INTO messages(incoming_msg_ID,outgoing_msg_ID,msg) VALUES (?,?,?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$firstname, $email, $password]);
+        $stmt->execute([$incomingID, $outgoingID, $msg]);
     }
 
     protected function checkUser($email)
