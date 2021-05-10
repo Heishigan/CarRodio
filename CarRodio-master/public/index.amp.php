@@ -277,62 +277,11 @@
   <section class="travel-main-wrapper overflow-hidden" role="main">
 
     <section class="relative z2">
-      <header class="nav -right-aligned">
-        <nav class="nav-main">
-          <a class="nav-logo -mobile" href="#">
-            <img class="nav-logo__image" id="logo" src="assets/images/logo.svg" alt="Logo">
-          </a>
-          <ul class="nav-list" role="menu" aria-hidden="true">
-            <div class="nav-list__wrapper">
-              <li class="nav-list__item" role="none">
-                <a class="nav-logo" href="#">
-                  <img class="nav-logo__image" id="logo" src="assets/images/logo.svg" alt="Logo">
-                </a>
-              </li>
-              <li class="nav-list__item" role="none">
-                <a class="nav-list__link" role="menuitem" href="https://github.com/obscuredetour/simply-nav">GitHub</a>
-              </li>
-              <li class="nav-list__item" role="none">
-                <a class="nav-list__link" role="menuitem" href="#features">Features</a>
-              </li>
-              <li class="nav-list__item" role="none">
-                <a class="nav-list__link" role="menuitem" href="#custom">Customizable</a>
-              </li>
-              <li class="nav-list__item" role="none">
-                <a class="nav-list__link" role="menuitem" href="#how-to-use">How to use</a>
-              </li>
-              <li class="nav-list__item" role="none">
-                <a class="nav-list__link" role="menuitem" href="#example">Example Link</a>
-              </li>
-            </div>
-          </ul>
-          <button class="nav-toggle" type="button" aria-expanded="false">
-            <div class="burger -squeeze -offset" type="button">
-              <span class="burger-lines"></span>
-            </div>
-          </button>
-        </nav>
-        <ul class="nav-list -mobile" role="menu" aria-hidden="true">
-          <div class="nav-list__wrapper">
-            <li class="nav-list__item" role="none">
-              <a class="nav-list__link" role="menuitem" href="https://github.com/obscuredetour/simply-nav">GitHub</a>
-            </li>
-            <li class="nav-list__item" role="none">
-              <a class="nav-list__link" role="menuitem" href="#features">Features</a>
-            </li>
-            <li class="nav-list__item" role="none">
-              <a class="nav-list__link" role="menuitem" href="#custom">Customizable</a>
-            </li>
-            <li class="nav-list__item" role="none">
-              <a class="nav-list__link" role="menuitem" href="#how-to-use">How to use</a>
-            </li>
-            <li class="nav-list__item" role="none">
-              <a class="nav-list__link" role="menuitem" href="#example">Example Link</a>
-            </li>
-          </div>
-          <div class="nav-overlay"></div>
-        </ul>
-      </header>
+      <?php
+
+      include_once('../src/backend/includes/navbar.php')
+
+      ?>
     </section>
 
 

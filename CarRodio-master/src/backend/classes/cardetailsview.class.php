@@ -128,9 +128,9 @@ EOT;
                             <hr>
                             <!-- row.// -->
 
-                            <a href="#" class="btn  btn-primary"> Buy now </a>
-                            <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
-                        </article> <!-- product-info-aside .// -->
+                            <a href="./chatpage.php" class="btn  btn-primary">Enquire Seller </a>
+                            <a href="./addTofavorites.php?id={$name['ID']}" class="btn  btn-outline-primary"> <span class="text">Add to Favourites</span> <i class="fas fa-shopping-cart"></i> </a>
+                            </article> <!-- product-info-aside .// -->
                     </main> <!-- col.// -->
                 </div>
 

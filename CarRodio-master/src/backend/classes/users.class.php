@@ -22,6 +22,15 @@ class Users extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
+    protected function getAllBuyersUser()
+    {
+        $sql = "SELECT * FROM users WHERE usertype = 'buyer' ";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+        return $results;
+    }
 
 
 
@@ -41,4 +50,14 @@ class Users extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
+
+    public function getname($uuid)
+    {
+        $sql = "SELECT username FROM users WHERE ID='$uuid'";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$uuid]);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
 }

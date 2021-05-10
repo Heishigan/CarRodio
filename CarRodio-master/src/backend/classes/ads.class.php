@@ -11,6 +11,17 @@ class Ads extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
+    protected function getFavouriteAd($ID)
+    {
+        $sql = "SELECT * FROM ad WHERE ID = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$ID]);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
+
+
+
 
     protected function searchAds($brandName)
     {
@@ -74,6 +85,35 @@ class Ads extends Dbh
         $stmt->execute([$ID]);
 
         
+    }
+
+    public function getadid($ID)
+    {
+        $db = mysqli_connect('localhost', 'root', '', 'carrodio');
+        $sql = "SELECT ID FROM ad WHERE CarDetailsID='$ID'";
+        if ($result = $db->query($sql)) {
+            while ($row = $result->fetch_assoc()) {
+                return $row['ID'];
+            }
+        }
+    }
+    public function addcr($comment, $rating, $val, $IDU)
+    {
+        echo "in";
+        $sql = "INSERT INTO commentsrating(Comment,Rating,AdID,UserID) VALUES (?,?,?,?)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$comment, $rating, $val, $IDU]);
+    }
+
+    public function getuid($val2)
+    {
+        $db = mysqli_connect('localhost', 'root', '', 'carrodio');
+        $sql = "SELECT UserID FROM ad WHERE ID='$val2'";
+        if ($result = $db->query($sql)) {
+            while ($row = $result->fetch_assoc()) {
+                return $row['UserID'];
+            }
+        }
     }
 
 

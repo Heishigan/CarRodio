@@ -1,6 +1,8 @@
 <?php
 include_once(__DIR__ . './cars.class.php');
 include_once(__DIR__ . './carsview.class.php');
+include_once(__DIR__ . './favouritesview.class.php');
+
 class AdsView extends Ads{
 
     public function showAds()
@@ -14,6 +16,22 @@ class AdsView extends Ads{
             
         }
     }
+    public function showFavouriteAds($UserID)
+    {
+        $FavourtieId = new FavouritesView();
+        $newID= $FavourtieId->getAdID($UserID);
+        $results = $this->getFavouriteAd($newID);
+        foreach ($results as $name) {       
+            $cars = new CarView();
+            $carID = $name['CarID'];
+            $cars->showFavCarsforAds($carID);
+            
+        }
+    }
+
+
+    
+
     public function showAdsforSeller()
     {
 

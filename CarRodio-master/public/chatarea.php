@@ -14,7 +14,8 @@ if (isset($_POST['Send-Message'])) { //check if form was submitted
     $Message = new MessagesContr();
     $msg = $_POST['Message'];
     $incomingID = $_SESSION["incomingIDParam"];
-    $Message->SendMessage($incomingID,1,$msg);
+    $ID = $_SESSION["buyerID"];
+    $Message->SendMessage($incomingID,$ID, $msg);
 }
 
 ?>
@@ -39,7 +40,7 @@ if (isset($_POST['Send-Message'])) { //check if form was submitted
 
             <header>
                 <a href="./chatpage.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-                <img src="#" alt="">
+                <img src="../src/frontend/assets/imgs/user.png" alt="">
                 <?php
                 $userID = $_SESSION["incomingIDParam"];
                 $UsersView->displayCurrentTextingUser($userID);
@@ -48,36 +49,12 @@ if (isset($_POST['Send-Message'])) { //check if form was submitted
 
             <div class="chat-box">
 
-                <div class="chat outgoing">
-                    <div class="details">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, perferendis culpa cumque pariatur totam vero laboriosam et quae optio non, ea amet voluptatum aliquid. Aliquam iure magnam minus inventore rem.</p>
-
-                    </div>
-
-                </div>
-                <div class="chat incoming">
-                    <img src="#" alt="">
-                    <div class="details">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, perferendis culpa cumque pariatur totam vero laboriosam et quae optio non, ea amet voluptatum aliquid. Aliquam iure magnam minus inventore rem.</p>
-
-                    </div>
-
-                </div>
-                <div class="chat outgoing">
-                    <div class="details">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, perferendis culpa cumque pariatur totam vero laboriosam et quae optio non, ea amet voluptatum aliquid. Aliquam iure magnam minus inventore rem.</p>
-
-                    </div>
-
-                </div>
-                <div class="chat incoming">
-                    <img src="#" alt="">
-                    <div class="details">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, perferendis culpa cumque pariatur totam vero laboriosam et quae optio non, ea amet voluptatum aliquid. Aliquam iure magnam minus inventore rem.</p>
-
-                    </div>
-
-                </div>
+                <?php
+                $Messageview = new MessagesView();
+                $incomingID = $_SESSION["incomingIDParam"];
+                $ID = $_SESSION["buyerID"];
+                $Messageview->DisplayMessages($incomingID, $ID);
+                ?>
 
             </div>
             <form action="" class="typing-area" method="POST">

@@ -7,7 +7,7 @@ class Usersview extends Users{
         foreach ($results as $name) {
             echo <<<EOT
   <div class="content">
-                    <img src="#" alt="">
+                    <img src="../src/frontend/assets/imgs/user-profile.png" alt="">
                     <div class="details">
                         <span>{$name['username']}</span>
                         <p>Active now</p>
@@ -37,7 +37,28 @@ EOT;
             echo <<<EOT
    <a href="./chatarea.php?id={$name['ID']}">
                     <div class="content">
-                        <img src="#" alt="">
+                        <img src="../src/frontend/assets/imgs/user.png" alt="">
+                        <div class="details">
+                            <span>{$name['username']}</span>
+                            <p>Test messahe</p>
+                        </div>
+                    </div>
+                    <div class="status-dot">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </a>      
+EOT;
+        }
+    }
+
+    public function displayBuyers()
+    {
+        $results = $this->getAllBuyersUser();
+        foreach ($results as $name) {
+            echo <<<EOT
+   <a href="./chatarea.php?id={$name['ID']}">
+                    <div class="content">
+                        <img src="../src/frontend/assets/imgs/user.png" alt="">
                         <div class="details">
                             <span>{$name['username']}</span>
                             <p>Test messahe</p>

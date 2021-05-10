@@ -4,26 +4,18 @@ class Messages extends Dbh
 {
 
 
-    protected function getUser($ID)
+    protected function GetMessages($incomingID, $outgoingID)
     {
-        $sql = "SELECT * FROM users WHERE ID = ?";
+        $sql = "SELECT * FROM messages WHERE outgoing_msg_ID = '$outgoingID' AND incoming_msg_ID = '$incomingID'
+        OR outgoing_msg_ID = '$incomingID' AND incoming_msg_ID = '$outgoingID' ORDER BY ID ASC";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$ID]);
+        $stmt->execute([$incomingID, $outgoingID]);
 
         $results = $stmt->fetchAll();
         return $results;
     }
 
-    protected function getAllSellersUser()
-    {
-        $sql = "SELECT * FROM users WHERE usertype = 'seller' ";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute();
-
-        $results = $stmt->fetchAll();
-        return $results;
-    }
-
+  
 
 
     protected function setMessage($incomingID, $outgoingID, $msg)
@@ -33,13 +25,5 @@ class Messages extends Dbh
         $stmt->execute([$incomingID, $outgoingID, $msg]);
     }
 
-    protected function checkUser($email)
-    {
-        $sql = "SELECT * FROM users WHERE email = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$email]);
 
-        $results = $stmt->fetchAll();
-        return $results;
-    }
 }

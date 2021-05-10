@@ -115,19 +115,19 @@ public function usercheck($email) {
   echo "string";
   $email2='';
 
-  foreach ($names as $name) {
-    if ($name['usertype']==="admin") {
+    foreach ($names as $name) {
+      if ($name['usertype'] === "admin") {
         header("location:admin.php");
       }
-      if ($name['usertype']=="seller") {
-          header("location:register.php");
-          $_SESSION["sellerID"] = $name['ID'];
+      if ($name['usertype'] == "seller") {
+        header("location:register.php");
+        $_SESSION["sellerID"] = $name['ID'];
       }
-      if ($name['usertype']=="buyer") {
-          header("location:test.php");
-          $_SESSION["buyerID"] = $name['ID'];
+      if ($name['usertype'] == "buyer") {
+        header("location:test.php");
+        $_SESSION["buyerID"] = $name['ID'];
       }
-  }
+    }
 
   }
 
@@ -176,7 +176,30 @@ public function usercheck($email) {
      }
 
    }
+  public function addToFavorites($UserID, $AdID)
+  {
+    // echo $email;
+    // echo $password;
+    // echo $usertype;
+    // $db=mysqli_connect('localhost','root','','cc');
+    // $q="SELECT * FROM users where email='$email'";
+    // $r=mysqli_query($db,$q);
+    // if (mysqli_num_rows($r)>0) {
+    //   echo "username already exists";
+    // }
 
+
+
+    $sql = "INSERT INTO favourites VALUES (?,?)";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([$UserID, $AdID]);
+    $query = "INSERT INTO favourites(UserID,AdID) VALUES (?,?)";
+    $db = $this->connect()->prepare($query);
+    $db->execute([$UserID, $AdID]);
+    // $res="succesfully inserted";
+    $this->msg = "sucessfully inserted";
+    header("location:test.php");
+  }
 
 
 }

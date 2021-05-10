@@ -17,6 +17,8 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../src/frontend/assets/css/admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <title>Seller Dashboard</title>
 </head>
 
@@ -168,14 +170,19 @@ session_start();
               <i class="fa fa-bookmark"></i>
               <a href="postedAdverts.php">View Posted Advertisements</a>
             </div>
-            <div class="sidebar__logout">
-              <i class="fa fa-power-off"></i>
-              <a href="logout.php">Log out</a>
+            <div class="sidebar__menu">
+              <div class="sidebar__link">
+                <i class="far fa-comment"></i>
+                <a href="chatforseller.php">View Chat</a>
+              </div>
+              <div class="sidebar__logout">
+                <i class="fa fa-power-off"></i>
+                <a href="logout.php">Log out</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <script src="js/index.js"></script>
+        <script src="js/index.js"></script>
 </body>
 
 </html>

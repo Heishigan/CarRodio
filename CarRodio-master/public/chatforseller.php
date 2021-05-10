@@ -23,12 +23,12 @@ session_start();
         <section class="users">
 
             <header>
-               <?php
-               $ID = $_SESSION["buyerID"];
-                $UsersView->displayCurrentUser($ID); 
-                // This is where the ID from the session gets the Active user buyer
-        
-               ?>
+                <?php
+                $SellerID = $_SESSION["sellerID"];
+                $UsersView->displayCurrentUser($SellerID);
+                // This is where the ID from the session gets the Active user of seller
+
+                ?>
             </header>
 
 
@@ -38,10 +38,10 @@ session_start();
                 <button><i class="fas fa-search"></i></button>
             </div>
             <div class="users-list">
-          <?php 
-          $UsersView->displaySellers();
-          
-          ?>
+                <?php
+                $UsersView->displayBuyers();
+
+                ?>
             </div>
 
         </section>
