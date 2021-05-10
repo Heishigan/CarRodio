@@ -199,7 +199,47 @@ EOT;
          
         }
     }
+    public function getFilteredCars($Keyword)
+    {
+        $results = $this->getFilteredCar($Keyword);
+        foreach ($results as $name) {
+            $carDetailsID = $name['CarDetails'];
+            echo <<<EOT
+     
+            
+                        <div class="col-md-4">
+                            <figure class="card card-product-grid">
+                                <div class="img-wrap">
+EOT;
+            $Details = new CarDetailsView();
+            $Details->getCarImage($carDetailsID);
 
+            echo <<<EOT
+
+                                    
+                                    <a class="btn-overlay" href="./ad-details.php?id={$carDetailsID}"><i class="fa fa-search-plus"></i> Quick view</a>
+                                </div> <!-- img-wrap.// -->
+                                <figcaption class="info-wrap">
+                                    <div class="fix-height">
+                                        <a href="#" class="title">{$name['CarBrandName']} {$name['Name']}</a>
+                                         <a href="#" class="title">{$name['Model']}</a>
+                                        <div class="price-wrap mt-2">
+                                            <span class="price">{$name['Price']}</span>
+                                            <span class="price" style="color:#118ab2;">{$name['VehicleCondition']}</span>
+                                        </div> <!-- price-wrap.// -->
+                                    </div>
+                                    <a href="#" class="btn btn-block btn-primary">Add to cart </a>
+                                </figcaption>
+                            </figure>
+                        </div> <!-- col.// -->
+
+ 
+                   
+             
+EOT;
+
+        }
+    }
 
 
     public function getSingleCar($ID)

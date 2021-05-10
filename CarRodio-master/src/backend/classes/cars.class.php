@@ -11,6 +11,10 @@ class Car extends Dbh
         $results = $stmt->fetchAll();
         return $results;
     }
+
+
+    
+
     protected function getCars()
     {
         $sql = "SELECT * FROM car";
@@ -36,6 +40,15 @@ class Car extends Dbh
         return $results;
     }
 
+    protected function getFilteredCar(array $Brands)
+    {
+        $qMarks = str_repeat('?,', count($Brands) - 1) . '?';
+        $sql = "SELECT * FROM car WHERE CarBrandName IN ($qMarks)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute($Brands);
+        $results = $stmt->fetchAll();
+        return $results;
+    }
 
     protected function getCarLastID()
     {

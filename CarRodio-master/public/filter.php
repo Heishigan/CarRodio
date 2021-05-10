@@ -3,15 +3,12 @@
 include("../src/backend/includes/autoloader.inc.php");
 
 
-
-$Brands = new BrandsView();
-$Details = new CarDetailsView();
+$ads = new AdsView();
 $Cars = new CarView();
-$Ads = new AdsView();
-
-// $Details->showDetails();
-
 ?>
+
+
+
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -26,6 +23,7 @@ $Ads = new AdsView();
 
     <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
+    <!-- jQuery -->
     <!-- jQuery -->
     <script src="../src/frontend/assets/js/jquery-2.0.0.min.js" type="text/javascript"></script>
 
@@ -206,10 +204,9 @@ $Ads = new AdsView();
                                 </div> <!-- card-body.// -->
                             </div>
                         </article> <!-- filter-group .// -->
-                        <!-- filter-group .// -->
-                        <!-- filter-group .// -->
-
-                        <!-- filter-group .// -->
+                      <!-- filter-group .// -->
+                     <!-- filter-group .// -->
+                     <!-- filter-group .// -->
                     </div> <!-- card.// -->
 
                 </aside> <!-- col.// -->
@@ -226,7 +223,6 @@ $Ads = new AdsView();
                                 <option>Most Popular</option>
                                 <option>Cheapest</option>
                             </select>
-
                             <div class="btn-group">
                                 <a href="#" class="btn btn-outline-secondary" data-toggle="tooltip" title="List view">
                                     <i class="fa fa-bars"></i></a>
@@ -239,9 +235,13 @@ $Ads = new AdsView();
                     <div class="row">
                         <!-- col.// -->
                         <?php
+                        if (isset($_POST['submit'])) {
 
-                        $Ads->showAds();
-                       
+                            $test = $_POST['brand'];
+                            $Cars->getFilteredCars($test);
+
+                            // $ads->showSearchedAds($_POST['search']);
+                        }
 
                         ?>
 
@@ -280,14 +280,11 @@ $Ads = new AdsView();
     <!-- ========================= FOOTER END // ========================= -->
 
 
-
     <script>
         let spantag = document.getElementById("ItemsFound");
         let items = document.querySelectorAll('.col-md-4').length;
         spantag.innerText = items + " ads found";
     </script>
-    <script src="https://unpkg.com/boxicons@latest/dist/boxicons.js"></script>
-    <script src="../src/frontend/assets/js/simplenav.js"></script>
 </body>
 
 </html>
