@@ -40,7 +40,7 @@ EOT;
                         <img src="../src/frontend/assets/imgs/user.png" alt="">
                         <div class="details">
                             <span>{$name['username']}</span>
-                            <p>Test messahe</p>
+                            <p>Test message</p>
                         </div>
                     </div>
                     <div class="status-dot">
@@ -56,12 +56,12 @@ EOT;
         $results = $this->getAllBuyersUser();
         foreach ($results as $name) {
             echo <<<EOT
-   <a href="./chatarea.php?id={$name['ID']}">
+   <a href="./chatareaforseller.php?id={$name['ID']}">
                     <div class="content">
                         <img src="../src/frontend/assets/imgs/user.png" alt="">
                         <div class="details">
                             <span>{$name['username']}</span>
-                            <p>Test messahe</p>
+                            <p>Test message</p>
                         </div>
                     </div>
                     <div class="status-dot">
